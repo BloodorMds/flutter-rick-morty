@@ -3,6 +3,8 @@ import 'package:cours_flutter_rick_et_morty/service/characters_service.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../shared/custom_bottom_navbar.dart';
+
 class Home extends StatelessWidget {
   const Home({super.key});
 
@@ -12,29 +14,28 @@ class Home extends StatelessWidget {
     var service = CharactersService();
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text("Rick & Morty - Profiler"),
-      ),
-      body: FutureBuilder(
-        future: CharactersService().fetchCharacters(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            var characters = snapshot.data!;
-            return ListView.builder(
-              itemCount: characters.length,
-              itemBuilder: (context, index) =>
-                  _listElement(context, characters[index]),
-            );
-          } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
-          } else {
-            // Par défaut, afficher un Spinner
-            return const Center(child: CircularProgressIndicator());
-          }
-        }
-      )
-    );
+        bottomNavigationBar: const CustomBottomNavBar(selectedIndex: 0),
+        appBar: AppBar(
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+          title: const Text("Rick & Morty - Profiler"),
+        ),
+        body: FutureBuilder(
+            future: CharactersService().fetchCharacters(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                var characters = snapshot.data!;
+                return ListView.builder(
+                  itemCount: characters.length,
+                  itemBuilder: (context, index) =>
+                      _listElement(context, characters[index]),
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              } else {
+                // Par défaut, afficher un Spinner
+                return const Center(child: CircularProgressIndicator());
+              }
+            }));
   }
 }
 
