@@ -1,5 +1,4 @@
-import 'package:cours_flutter_rick_et_morty/screens/home.dart';
-import 'package:cours_flutter_rick_et_morty/screens/details_page.dart';
+import 'package:duolift/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -9,7 +8,17 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xffbb86fc),
+          brightness: Brightness.dark,
+        ).copyWith(
+          primaryContainer: const Color(0xffbb86fc),
+          onPrimaryContainer: Colors.black,
+          secondaryContainer: const Color(0xff03dac6),
+          onSecondaryContainer: Colors.black,
+          error: const Color(0xffcf6679),
+          onError: Colors.black,
+        ),
         useMaterial3: true,
       ),
       home: Home(),
